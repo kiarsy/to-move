@@ -1,0 +1,61 @@
+{
+    "routing": {
+        "domainStrategy": "Asls"
+    },
+    "inbounds": [
+        {
+            "sniffing": {
+                "enabled": false
+            },
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "settings": {
+                "udp": true,
+                "auth": "noauth",
+                "userLevel": 8
+            },
+            "tag": "socks",
+            "port": 10808
+        }
+    ],
+    "outbounds": [
+        {
+            "mux": {
+                "enabled": false
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "xtlsSettings": {
+                    "allowInsecure": true
+                },
+                "security": "xtls"
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "68.183.1.6",
+                        "users": [
+                            {
+                                "flow": "xtls-rprx-direct",
+                                "id": "f5d8f639-038d-4f65-8f02-a5cf666401d5",
+                                "level": 8,
+                                "encryption": "none"
+                            }
+                        ],
+                        "port": 443
+                    }
+                ]
+            }
+        }
+    ],
+    "log": {
+        "loglevel": "none"
+    },
+    "dns": {
+        "servers": [
+            "8.8.8.8",
+            "8.8.4.4"
+        ]
+    }
+}
